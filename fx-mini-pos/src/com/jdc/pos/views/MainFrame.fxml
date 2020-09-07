@@ -44,7 +44,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Mini POS" textFill="WHITE">
+                  <Label fx:id="labelRP" text="Mini POS" textFill="WHITE">
                      <font>
                         <Font size="30.0" />
                      </font>

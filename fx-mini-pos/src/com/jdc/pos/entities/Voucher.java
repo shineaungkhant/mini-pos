@@ -14,8 +14,9 @@ public class Voucher implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private LocalDate saleDate;
-	private List<OrderDetails> list;
 	private LocalTime saleTime;
+	
+	private List<OrderDetails> list;
 	
 	public Voucher() {
 		list = new ArrayList<OrderDetails>();

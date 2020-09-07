@@ -72,7 +72,7 @@ public class Report implements Initializable  {
 		item.valueProperty().addListener((a,b,c) -> search());
 		dateFrom.valueProperty().addListener((a,b,c) -> search());
 		dateTo.valueProperty().addListener((a,b,c) -> search());
-		dateFrom.setValue(LocalDate.now());
+		//dateFrom.setValue(LocalDate.now());
 		
 	}
 

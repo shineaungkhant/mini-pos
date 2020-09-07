@@ -9,3 +9,19 @@
 .text-white {
 	-fx-text-fill: white;
 }
+
+.al-left{
+	-fx-alignment: center-left ;
+}
+
+.al-right{
+	-fx-alignment: center-right ;
+}
+
+.pd-left-10{
+	-fx-padding: 0 0 0 10;
+}
+
+.al-center{
+	-fx-alignment: center ;
+}

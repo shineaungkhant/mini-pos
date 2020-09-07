@@ -38,6 +38,10 @@ public class MainFrame implements Initializable{
     @FXML
     private MenuItem uploadMenu;
     
+    @FXML
+    private Label labelRP;
+
+    
     private static final String POS = "M0 2v20h32v-20h-32zM30 20h-28v-16h28v16zM21 24h-10l-1 4-2 2h16l-2-2z";
     private static final String REPORT = "M27 0h-24c-1.65 0-3 1.35-3 3v26c0 1.65 1.35 3 3 3h24c1.65 0 3-1.35 3-3v-26c0-1.65-1.35-3-3-3zM26 28h-22v-24h22v24zM8 14h14v2h-14zM8 18h14v2h-14zM8 22h14v2h-14zM8 10h14v2h-14z";
     
@@ -51,7 +55,7 @@ public class MainFrame implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
     	itemService = ItemService.getInstance();
-    	itemService.add("items.txt");
+    	//itemService.add("items.txt");
     	
 		showPos = event -> {
 			loadView("Pos.fxml");
@@ -61,6 +65,7 @@ public class MainFrame implements Initializable{
 		};
 		
 		showReport = event -> {
+			labelRP.setText("Report");
 			loadView("Report.fxml");
 			icon.setContent(REPORT);
 			button.setOnMouseClicked(showPos);

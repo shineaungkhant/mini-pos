@@ -14,7 +14,7 @@ public class Item implements Serializable {
 	private int price;
 	
 	public Item() {
-
+		
 	}
 	
 	public Item(String ... line) {

@@ -2,6 +2,7 @@ package com.jdc.pos.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class OrderDetails implements Serializable{
 
@@ -9,6 +10,7 @@ public class OrderDetails implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private int count;
 	private int subTotal;
 	private int total;
@@ -16,6 +18,14 @@ public class OrderDetails implements Serializable{
 	
 	private Item item;
 	private Voucher voucher;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public Voucher getVoucher() {
 		return voucher;
@@ -70,6 +80,11 @@ public class OrderDetails implements Serializable{
 		return voucher.getSaleDate();
 	}
 	
+	public LocalTime getSaleTime() {
+		return voucher.getSaleTime();
+		
+	}
+	
 	public Category getCategory() {
 		return item.getCategory();
 	}
@@ -84,4 +99,6 @@ public class OrderDetails implements Serializable{
 		tax = rawTax.intValue();
 		total = tax + subTotal;
 	}
+
+	
 }

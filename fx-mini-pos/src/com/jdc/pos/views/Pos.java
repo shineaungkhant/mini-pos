@@ -15,13 +15,17 @@ import com.jdc.pos.service.ItemService;
 import com.jdc.pos.service.SaleService;
 import com.jdc.pos.util.MessageHandler;
 import com.jdc.pos.util.PosException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
 
 public class Pos implements Initializable {
 
@@ -41,6 +45,10 @@ public class Pos implements Initializable {
     private Label tax;
     @FXML
     private Label total;
+    
+    @FXML
+    private TableColumn<OrderDetails, Integer> count;
+
     
     private ItemService itemService;
     private SaleService saleService;
@@ -79,6 +87,7 @@ public class Pos implements Initializable {
 				throw new PosException("Please select item in cart Table to delete !");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			MessageHandler.showAlert(e);
 			MessageHandler.toFront();
 		}
@@ -101,10 +110,11 @@ public class Pos implements Initializable {
 			saleService.paid(voucher);
 			clearCart();
 			
-			MessageHandler.showAlert("sieze: " + saleService.search(null, null, null, null).size());
-			MessageHandler.showAlert("ID " + voucher.getId());
+			MessageHandler.showAlert("Sieze: " + saleService.search(null, null, null, null).size() + "\nID " + voucher.getId());
+		
 			
 		} catch (Exception e) {
+			//e.printStackTrace();
 			MessageHandler.showAlert(e);
 		}
     	
@@ -119,7 +129,7 @@ public class Pos implements Initializable {
 			itemTable.getItems().addAll(items);
 		} catch (Exception e) {
 			MessageHandler.showAlert(e);
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
     }
     
@@ -159,7 +169,52 @@ public class Pos implements Initializable {
 			}
 		});
 		
+		//context menu
+		MenuItem delete = new MenuItem("DELETE");
+		delete.setOnAction(event ->delete());
+		
+		ContextMenu ctx= new ContextMenu(delete);
+		cartTable.setContextMenu(ctx);
+		
 		search();
+		
+		//set editable table
+		cartTable.setEditable(true);
+		
+		//converter for table-column
+		count.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+
+			@Override
+			public Integer fromString(String arg0) {
+				try {
+					if (null != arg0 && !arg0.isEmpty() ) {
+						return Integer.parseInt(arg0);
+					}
+				} catch (NumberFormatException e) {
+				
+					e.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			public String toString(Integer arg0) {
+				if (null != arg0) {
+					return arg0.toString();
+				}
+				return null;
+			}
+		}));
+		
+		//event after commit in table-column
+		count.setOnEditCommit(event ->{
+			
+			OrderDetails detail=event.getRowValue();
+			detail.setCount(event.getNewValue());
+			detail.calculate();
+			cartTable.refresh();
+			calculate();
+		});
 	}
 
 }

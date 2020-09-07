@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdc.pos.views.Pos">
+<VBox prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdc.pos.views.Pos">
    <children>
       <HBox spacing="15.0">
          <children>
@@ -54,17 +55,25 @@
                   		<PropertyValueFactory property="id" />
                   	</cellValueFactory>
                   </TableColumn>
-                  <TableColumn prefWidth="150.0" style="-fx-alignment: left; -fx-padding: 0 0 0 10;" text="Category">
+                  <TableColumn prefWidth="120.0" text="Category">
                   	<cellValueFactory>
                   		<PropertyValueFactory property="category" />
                   	</cellValueFactory>
+                     <styleClass>
+                        <String fx:value="pd-left-10" />
+                        <String fx:value="al-left" />
+                     </styleClass>
                   </TableColumn>
-                  <TableColumn prefWidth="150.0" style="-fx-alignment: left;" text="Item Name">
+                  <TableColumn prefWidth="130.0" text="Item Name">
                   	<cellValueFactory>
                   		<PropertyValueFactory property="name" />
                   	</cellValueFactory>
+                     <styleClass>
+                        <String fx:value="al-left" />
+                        <String fx:value="pd-left-10" />
+                     </styleClass>
                   </TableColumn>
-                  <TableColumn prefWidth="100.0" style="-fx-alignment: right;" text="Price">
+                  <TableColumn prefWidth="100.0" styleClass="al-right" text="Price">
                   	<cellValueFactory>
                   		<PropertyValueFactory property="price" />
                   	</cellValueFactory>	
@@ -79,18 +88,22 @@
                         <cellValueFactory>
                         <PropertyValueFactory property="item" /> 
                         </cellValueFactory>
+                           <styleClass>
+                              <String fx:value="pd-left-10" />
+                              <String fx:value="a-left" />
+                           </styleClass>
                         </TableColumn>
-                        <TableColumn prefWidth="90.0" text="Count">
+                        <TableColumn fx:id="count" prefWidth="90.0" styleClass="al-center" text="Count">
                         <cellValueFactory>
                         <PropertyValueFactory property="count" /> 
                         </cellValueFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="90.0" text="Unit Price">
+                        <TableColumn prefWidth="90.0" styleClass="al-right" text="Unit Price">
                         <cellValueFactory>
                         <PropertyValueFactory property="unitPrice" /> 
                         </cellValueFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="90.0" style="-fx-alignment: left;" text="Total">
+                        <TableColumn prefWidth="90.0" styleClass="al-right" text="Total">
                         <cellValueFactory>
                         <PropertyValueFactory property="total" /> 
                         </cellValueFactory>
