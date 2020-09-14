@@ -111,7 +111,8 @@ public class ItemServiceImpl implements ItemService{
 		try {
 			 Files.lines(Paths.get(path)).skip(1)
 				.map(line -> line.split("\t"))
-				.map(arr -> new Item(arr)).forEach(item->add(item));
+				.map(arr -> new Item(arr))
+				.forEach(item->add(item));
 		} catch (IOException e) {
 			
 			e.printStackTrace();

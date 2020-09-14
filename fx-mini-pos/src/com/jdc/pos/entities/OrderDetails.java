@@ -82,7 +82,6 @@ public class OrderDetails implements Serializable{
 	
 	public LocalTime getSaleTime() {
 		return voucher.getSaleTime();
-		
 	}
 	
 	public Category getCategory() {

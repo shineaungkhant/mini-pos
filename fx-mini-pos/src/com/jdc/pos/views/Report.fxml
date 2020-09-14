@@ -6,10 +6,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-
 
 <VBox prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdc.pos.views.Report">
    <children>
@@ -27,42 +26,47 @@
       </HBox>
       <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn prefWidth="120.0" text="Sale Date" >
+          <TableColumn prefWidth="120.0" text="Sale Date">
           <cellValueFactory>
           	<PropertyValueFactory property="saleDate" />
           </cellValueFactory>
           </TableColumn>
-          <TableColumn prefWidth="130.0" text="Category" >
+            <TableColumn prefWidth="110.0" text="Sale Time">
+          <cellValueFactory>
+          	<PropertyValueFactory property="saleTime" />
+          </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="130.0" text="Category">
           <cellValueFactory>
           	<PropertyValueFactory property="category" />
           </cellValueFactory>
           </TableColumn>
-            <TableColumn prefWidth="130.0" text="Item" >
+            <TableColumn prefWidth="130.0" text="Item">
           <cellValueFactory>
           	<PropertyValueFactory property="item" />
           </cellValueFactory>
           </TableColumn>
-            <TableColumn prefWidth="105.0" text="Price" >
+            <TableColumn prefWidth="90.0" text="Price">
           <cellValueFactory>
           	<PropertyValueFactory property="unitPrice" />
           </cellValueFactory>
           </TableColumn>
-            <TableColumn prefWidth="105.0" text="Count" >
+            <TableColumn prefWidth="70.0" text="Count">
           <cellValueFactory>
           	<PropertyValueFactory property="count" />
           </cellValueFactory>
           </TableColumn>
-            <TableColumn prefWidth="105.0" text="Sub Total" >
+            <TableColumn prefWidth="90.0" text="Sub Total">
           <cellValueFactory>
           	<PropertyValueFactory property="subTotal" />
           </cellValueFactory>
           </TableColumn>
-            <TableColumn prefWidth="105.0" text="Tax" >
+            <TableColumn prefWidth="70.0" text="Tax">
           <cellValueFactory>
           	<PropertyValueFactory property="tax" />
           </cellValueFactory>
           </TableColumn>
-            <TableColumn prefWidth="105.0" text="Total" >
+            <TableColumn prefWidth="90.0" text="Total">
           <cellValueFactory>
           	<PropertyValueFactory property="total" />
           </cellValueFactory>

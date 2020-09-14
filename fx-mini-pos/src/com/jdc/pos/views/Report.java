@@ -1,7 +1,6 @@
 package com.jdc.pos.views;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -73,6 +72,8 @@ public class Report implements Initializable  {
 		dateFrom.valueProperty().addListener((a,b,c) -> search());
 		dateTo.valueProperty().addListener((a,b,c) -> search());
 		//dateFrom.setValue(LocalDate.now());
+		
+		search();
 		
 	}
 

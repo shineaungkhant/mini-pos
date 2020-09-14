@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jdc.pos.entities.Category;
@@ -24,6 +25,15 @@ public class SaleServiceImpl implements SaleService {
 	private static final String INSERT_VOUCHER = "insert into voucher (saleDate, saleTime) value(?,?)";
 	
 	private static final String INSERT_DETAIL = "insert into orderdetail (item , voucher, count, subTotal, tax, total  ) values (?,?,?,?,?,?)";
+	
+	private static final String SELECT = "select od.id detailId, v.id voucherId, i.id itemId,"
+			+ " v.saleDate, v.saleTime, i.category, i.name, i.price,"
+			+ " od.count, od.tax, od.subtotal, od.total "
+			+ "from orderDetail od "
+			+ "join voucher v "
+			+ "on od.voucher = v.id"
+			+ "join item i"
+			+ " on od.item = i.id where 1 = 1";
 	
 	SaleServiceImpl(){
 		
@@ -67,8 +77,65 @@ public class SaleServiceImpl implements SaleService {
 
 	@Override
 	public List<OrderDetails> search(Category c, Item item, LocalDate dateFrom, LocalDate dateTo) {
+		List<OrderDetails> list=new ArrayList<OrderDetails>();
+		StringBuilder query=new StringBuilder(SELECT);
+		List<Object> params=new ArrayList<Object>();
+		if (null != c) {
+			query.append(" and i.category = ?");
+			params.add(c);
+		}
+		if (null != item) {
+			query.append(" and i.name like ?");
+			params.add(item.getName().concat("%"));
+		}
+		if (null != dateFrom) {
+			query.append(" and v.saleDate >= ?");
+			params.add(Date.valueOf(dateFrom));
+		}
+		if (null != dateTo) {
+			query.append(" and v.saleDate <= ?");
+			params.add(Date.valueOf(dateTo));
+		}
+		try(Connection conn = ConnectionManager.getConnection();
+				PreparedStatement prep = conn.prepareStatement(query.toString())) {
+			for (int i = 0; i < params.size(); i++) {
+				prep.setObject(i+1, params.get(i));
+			}
+			
+			ResultSet rs=prep.executeQuery();
+			while(rs.next()) {
+				Item i = new Item();
+				i.setId(rs.getInt("itemId"));
+				i.setName(rs.getString("name"));
+				i.setCategory(Category.valueOf(rs.getString("category")));
+				i.setPrice(rs.getInt("price"));
+				
+				Voucher v = new Voucher();
+				v.setId(rs.getInt("voucherId"));
+				v.setSaleDate(rs.getDate("saleDate").toLocalDate());
+				v.setSaleTime(rs.getTime("saleTime").toLocalTime());
+				
+				OrderDetails detail=new OrderDetails();
+				
+				detail.setId(rs.getInt("detailId"));
+				detail.setCount(rs.getInt("count"));
+				detail.setSubTotal(rs.getInt("subtotal"));
+				detail.setTax(rs.getInt("tax"));
+				detail.setTotal(rs.getInt("total"));
+				
+				detail.setItem(i);
+				detail.setVoucher(v);
+				
+				list.add(detail);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return null;
+		
+		return list;
 	}
 
 }
