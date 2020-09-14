@@ -31,8 +31,8 @@ public class SaleServiceImpl implements SaleService {
 			+ " od.count, od.tax, od.subtotal, od.total "
 			+ "from orderDetail od "
 			+ "join voucher v "
-			+ "on od.voucher = v.id"
-			+ "join item i"
+			+ "on od.voucher = v.id "
+			+ "join item i "
 			+ " on od.item = i.id where 1 = 1";
 	
 	SaleServiceImpl(){
@@ -82,7 +82,7 @@ public class SaleServiceImpl implements SaleService {
 		List<Object> params=new ArrayList<Object>();
 		if (null != c) {
 			query.append(" and i.category = ?");
-			params.add(c);
+			params.add(c.toString());
 		}
 		if (null != item) {
 			query.append(" and i.name like ?");

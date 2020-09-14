@@ -127,6 +127,9 @@ public class Pos implements Initializable {
 			List<Item> items = itemService.search(category.getValue(), idName.getText());
 			itemTable.getItems().clear();
 			itemTable.getItems().addAll(items);
+			
+			MainFrame.showMessage("Total Items : " + items.size());
+			
 		} catch (Exception e) {
 			MessageHandler.showAlert(e);
 			//e.printStackTrace();

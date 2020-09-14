@@ -48,10 +48,18 @@ public class ItemServiceImpl implements ItemService{
 		}
 		
 		if (null != name && !name.isEmpty()) {
-				query.append(" and name like ?");
-				params.add(name.concat("%"));
+				if(check(name)) {
+					query.append(" and id = ?");
+					params.add(name);
+				}else {
+					
+					query.append(" and name like ?");
+					params.add(name.concat("%"));
+				}
+				
 			
 		}
+			
 		try (Connection conn=ConnectionManager.getConnection();
 				PreparedStatement prep=conn.prepareStatement(query.toString())) {
 			
@@ -74,6 +82,17 @@ public class ItemServiceImpl implements ItemService{
 		}
 		
 		return items;
+	}
+
+	
+
+	private boolean check(String name) {
+		try {
+		 Integer.parseInt(name);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 	
 	private Item getItem(ResultSet rs) throws SQLException{

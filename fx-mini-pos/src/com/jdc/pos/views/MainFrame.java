@@ -51,11 +51,15 @@ public class MainFrame implements Initializable{
     private ItemService itemService;
     private FileChooser chooser;
     
+    private static  Label output;
+    
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
     	itemService = ItemService.getInstance();
     	//itemService.add("items.txt");
+    	
+    	output=message;
     	
 		showPos = event -> {
 			loadView("Pos.fxml");
@@ -77,6 +81,14 @@ public class MainFrame implements Initializable{
 		
 		initFileChooser();
 	}
+    
+    public static void clearMessage() {
+    	output.setText("");
+    }
+    
+    public static void showMessage(String message) {
+    	output.setText(message);
+    }
     
     @FXML
     void upload() {
